@@ -1,28 +1,132 @@
 {
+  "contentType": "application/vnd.microsoft.card.adaptive",
+  "content": {
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "type": "AdaptiveCard",
     "version": "1.0",
     "body": [
-      {
-        "type": "TextBlock",
-        "text": "Enter the numbers that you would like to add"
-      },
-      {
-        "type": "Input.Text",
-        "id": "firstNumber",
-        "placeholder": "What is your first number?"
-      },
-      {
-        "type": "Input.Text",
-        "id": "secondNumber",
-        "placeholder": "What is your second number?"
-      }
-    ],
-    "actions": [
-      {
-        "type": "Action.Submit",
-        "title": "Action",
-        "id": "SubmitId"      
-      }
-    ]
+          {
+              "type": "Container",
+              "items": [
+                  {
+                      "type": "ColumnSet",
+                      "columns": [
+                          {
+                              "type": "Column",
+                              "size": "auto",
+                              "items": [
+                                  {
+                                      "type": "Image",
+                                      "url": "http://localhost:3978/images/order.png",
+                                      "size": "medium",
+                                      "style": "person"
+                                  }
+                              ]
+                          },
+                          {
+                              "type": "Column",
+                              "size": "stretch",
+                              "items": [
+                                  {
+                                      "type": "TextBlock",
+                                      "text": "Place Order!",
+                                      "weight": "bolder",
+                                      "isSubtle": true
+                                  },
+                                  {
+                                      "type": "TextBlock",
+                                      "text": "Please fill the following information to proceed with the ticket booking",
+                                      "wrap": true
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "Name",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "userName",
+                    "placeholder": "Last, First"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "Email",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "userEmail",
+                    "placeholder": "youremail@example.com",
+                    "style": "email"
+                  },
+                  {
+                    "type": "TextBlock",
+                    "text": "Credit Card",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "userCardDetails",
+                    "placeholder": "xxxxxxxxxxxxxxxx",
+                    "style": "email"
+                  },
+                  {
+                    "type": "ColumnSet",
+                    "columns": [
+                      {
+                        "type": "Column",
+                        "items": [
+                          {
+                            "type": "TextBlock",
+                            "text": "Phone Number"
+                          },
+                          {
+                            "type": "Input.Text",
+                            "id": "userPhoneNumber",
+                            "placeholder": "xxx.xxx.xxxx",
+                            "style": "tel"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Column",
+                        "items": [
+                          {
+                            "type": "TextBlock",
+                            "text": "Number Of Tickets"
+                          },
+                          {
+                            "type": "Input.Number",
+                            "id": "noOfTickets",
+                            "placeholder": "2",
+                            "style": "tel"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+              ]
+          }
+      ],
+	  "actions": [
+                    {
+                      "type": "Action.Submit",
+                      "title": "Book Tickets",
+                      "data": {
+                        "type": "bookTicketsAction"
+                      }
+                    },
+					          {
+                      "type": "Action.Submit",
+                      "title": "Cancel",
+                      "data": {
+                        "type": "cancelBookingAction"
+                      }
+                    }
+				       ]
   }
+}
