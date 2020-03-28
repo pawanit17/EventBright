@@ -3,7 +3,7 @@
 var botBuilder = require('botbuilder');
 var eventRegistry = require('./eventRegistry');
 
-const InputNumbersCard = require('./resources/InputNumbers.json');
+const enterUserDetails = require('./resources/enteruserdetails.json');
 
 // 'Restify' - the server that we are going to use.
 var restify = require('restify');
@@ -84,7 +84,7 @@ bot.dialog('buyTickets', [
         var selectedEvent = session.message.text;
         session.privateConversationData.selectedEvent = selectedEvent.substring( "Buy Tickets For ".length );
         var msg = new botBuilder.Message(session)
-                                .addAttachment(InputNumbersCard);
+                                .addAttachment(enterUserDetails);
         session.send(msg);
         session.endDialog();
     }
