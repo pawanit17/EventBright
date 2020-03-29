@@ -6,13 +6,13 @@ My inspirations for this project are EventBrite (https://www.eventbrite.com/), M
 
 The project is built on top of Microsfot Botframework V3, with NodeJS as the backend. Following are some really good examples of understanding these Bots and their underlying framework in more depth.
 
-Conversational Flow:
+### Conversational Flow
 https://docs.microsoft.com/en-us/azure/bot-service/nodejs/bot-builder-nodejs-dialog-manage-conversation-flow?view=azure-bot-service-3.0
 
-Principles of Bot Design:
+### Principles of Bot Design
 https://docs.microsoft.com/en-us/azure/bot-service/bot-service-design-principles?view=azure-bot-service-3.0
 
-Key concepts:
+### Key concepts
 https://docs.microsoft.com/en-us/azure/bot-service/nodejs/bot-builder-nodejs-concepts?view=azure-bot-service-3.0
 
 ## Using the project
@@ -42,6 +42,8 @@ Bot Emulator: Download the latest Bot Emulator software from here: https://githu
     ```
 
 ## Project Execution Flow
+The following section lists the overall flow of the user and bot interation in differnt paths.
+
 ### Happy Flow
 This is the execution flow where the user successfully orders a ticket for a given event.
 ![](documentation/Happy%20Flow.png)
@@ -51,14 +53,16 @@ This depicts the flow where the user chose to not register for an event halfway 
 in any other type of events by prompting the event options dialog again.
 ![](documentation/Unhappy%20Flow.png)
 
-In this project, we have mainly used the following constructs from the Bot Framework V3.
 
-#### User Prompts
+## V3 Bot Framewor Rich Cards
+In this project, I have mainly used the following constructs from the Bot Framework V3 when interacting with the user and exchanging critical information. They are listed below for reference.
+
+### User Prompts
 The prompts are used to gather inputs from the user. Example of such a construct is 
 ```bash 
 botBuilder.Prompts.text( session, "Please tell me your name." )
 ```
-#### List Card
+### List Card
 The list of option prompts are used to ask the user which event type he would like to book a ticket for.
 ```bash
 botBuilder.Prompts.choice(session,
@@ -66,7 +70,7 @@ botBuilder.Prompts.choice(session,
             eventRegistry.EVENT_TYPES,
             { listStyle: botBuilder.ListStyle.button })
 ```
-#### A carousal of Hero Cards
+### A carousal of Hero Cards
 A Hero Card is presented for each type of event that is avaialble for an event type - Sports, Movies, MeetUps etc. For a such event type having the cards displayed beside each other constitutes the carousal of Hero Cards.
 ```bash
         var cards = eventRegistry.getHeroCardsForEvents( session );
@@ -78,7 +82,7 @@ A Hero Card is presented for each type of event that is avaialble for an event t
         session.send( reply )
 ```
 
-#### Adaptive Card
+### Adaptive Card
 To get the user details like name, email id, credit card details and the number of tickets for preparing the purchase of the tickets.
 ```bash        
         var selectedEvent = session.message.text;
@@ -87,8 +91,8 @@ To get the user details like name, email id, credit card details and the number 
                                 .addAttachment(enterUserDetails)
         session.send(msg)
 ```        
-#### Receipt Card
-To display the uesr selections along with the total price, we are using a Receipt Card.
+### Receipt Card
+To display the user selections along with the total price, we are using a Receipt Card.
 ```bash
 var receiptCard = new botBuilder.ReceiptCard(session)
         .title('Ticket Confirmation: ' + session.privateConversationData.selectedEvent )
