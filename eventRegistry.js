@@ -1,3 +1,6 @@
+// Copyright 2020 Pavan Dittakavi.
+// The event registry for the 'EventBright' chatbot.
+
 var botBuilder = require('botbuilder');
 
 const EVENT_TYPE_CONCERT = 'Concerts Cohorts';
@@ -9,7 +12,8 @@ const EVENT_TYPES = [ EVENT_TYPE_CONCERT, EVENT_TYPE_SPORTS, EVENT_TYPE_MOVIE, E
 
 var eventTypeToEventsMap = {};
 
-// Get the CONCERT events listed.
+// We build the data of our interest here. In a realistic usease, this would be coming from a database.
+// Build the CONCERT events.
 eventTypeToEventsMap[EVENT_TYPE_CONCERT] = [  { eventName: "AQUA - Live In Rotterdam",
 eventDate: "27th March 2020",
 eventLocation: "15 Saint Pieterslann",
@@ -40,7 +44,7 @@ logo: "/images/linkinpark.jpg",
 eventPrice: "16" }
 ];
 
-// Get the SPORTS events listed.
+// Build the SPORTS events.
 eventTypeToEventsMap[EVENT_TYPE_SPORTS] = [  { eventName: "LaLiga - Barcelona vs Real Madrid",
 eventDate: "27th June 2020",
 eventLocation: "Santiago Bernabau",
@@ -71,7 +75,7 @@ logo: "/images/frenchopen.jpg",
 eventPrice: "250" }
 ]; 
 
-// Get the MOVIE events listed.
+// Build the MOVIE events.
 eventTypeToEventsMap[EVENT_TYPE_MOVIE] = [  { eventName: "Avengers Infinity War",
 eventDate: "27th March 2020",
 eventLocation: "El Capitan Theater, Hollywood",
@@ -102,7 +106,7 @@ logo: "/images/moonlight.png",
 eventPrice: "15" }
 ];
 
-// Get the MEETUP events listed.
+// Build the MEETUP events.
 eventTypeToEventsMap[EVENT_TYPE_MEETUP] = [  { eventName: "The Walkers and Joggers Consortium",
 eventDate: "12th March 2020",
 eventLocation: "Adelaide",
@@ -133,7 +137,7 @@ logo: "/images/selfimprovement.jpg",
 eventPrice: "6" }
 ];
 
-// Get the FITNESS events listed.
+// Build the FITNESS events.
 eventTypeToEventsMap[EVENT_TYPE_FITNESS] = [  { eventName: "Martinsville 5K Run",
 eventDate: "27th August 2020",
 eventLocation: "Dallas County, Texas",
@@ -164,12 +168,21 @@ logo: "/images/marathon.jpg",
 eventPrice: "18" }
 ];
 
-
+/**
+ * Method to get the events that are registered for a given event type.
+ * @param  eventType The event type whose events are to be extracted.
+ * @return An array of event objects for the given event type.
+ */
 function getEvents( eventType ) {
     // Return the construted object back to the caller.
     return eventTypeToEventsMap[eventType];
 }
 
+/**
+ * Method to get the array of HeroCards for the specified event type.
+ * @param  session The session for the transaction holding the corresponding event type.
+ * @return An array of event objects for the given event type.
+ */
 function getHeroCardsForEvents(session) {
 
     // Get the list of upcoming events.
@@ -193,6 +206,11 @@ function getHeroCardsForEvents(session) {
     return upcomingEventsHeroCards;
 }
 
+/**
+ * Method to get all the event details for a specific event. The event specific attributes like
+ * pricing, date, venue etc, would be registered on the session object in this method.
+ * @param  session The session object for the transaction.
+ */
 function getSelectedEventDetails( session )
 {
     var selectedEvent = session.privateConversationData.selectedEvent;
@@ -208,7 +226,7 @@ function getSelectedEventDetails( session )
     }
 }
 
-
+// We need to export the below methods, constructs to other calling JS modules.
 module.exports.getHeroCardsForEvents = getHeroCardsForEvents;
 module.exports.getSelectedEventDetails = getSelectedEventDetails;
 module.exports.EVENT_TYPES = EVENT_TYPES;

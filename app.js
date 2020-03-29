@@ -1,8 +1,12 @@
+// Copyright 2020 Pavan Dittakavi.
+// The main source file for the 'EventBright' chatbot built via Microsoft Azure V3 framework.
+
 // BotBuilder is the SDK in NodeJS for building a Bot in Azure.
 // We would be using the version 3 of the BotBuilder SDK for this demo.
 var botBuilder = require('botbuilder');
 var eventRegistry = require('./eventRegistry');
 
+// Get the adaptive card that is needed to receive the user details during ticket reservation.
 const enterUserDetails = require('./resources/enteruserdetails.json');
 
 // 'Restify' - the server that we are going to use.
@@ -178,8 +182,12 @@ function processSubmitAction(session, value) {
     }
 }
 
-
-function confirmTickets(session, value) {
+/**
+ * Method to confirm with the user his preferences opted for a given event. This method also constructs a
+ * receipt card containing the same information and displays it to the user.
+ * @param  session The session for the current transaction.
+ */
+function confirmTickets(session) {
 
     eventRegistry.getSelectedEventDetails( session );
     var totalCost = Number(session.privateConversationData.noOfTickets) * Number(session.privateConversationData.eventPrice);
@@ -210,6 +218,10 @@ function confirmTickets(session, value) {
               .addAttachment(receiptCard));
     }
 
+/**
+ * Method to generate a TicketID for the user selection and add the same to session object.
+ * @param  session The session for the current transaction.
+ */
 function getTicketNumber( session )
 {
     var ticketNumber = String.fromCharCode(65+Math.floor(Math.random() * 26)) +
