@@ -142,7 +142,7 @@ bot.dialog('askForSelectingAnEventType', [
     }
 ]);
 
-// Dialog to display the list of available events for registration.
+// Dialog to display the list of available events for a given event type for registration.
 bot.dialog('listAvailableEvents', [
     function (session) {
         var cards = eventRegistry.getHeroCardsForEvents( session );
