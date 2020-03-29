@@ -133,7 +133,7 @@ bot.dialog('askForUserName', [
 bot.dialog('askForSelectingAnEventType', [
     function (session) {
         botBuilder.Prompts.choice(session,
-            'What do you want to do today?.',
+            'Please select any event type to begin...',
             eventRegistry.EVENT_TYPES,
             { listStyle: botBuilder.ListStyle.button });
         },
